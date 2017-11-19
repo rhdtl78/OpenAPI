@@ -24,7 +24,7 @@ router.get('/book', function(req, res) {
   var client_secret = 'wN8hWqSDa_';
   var host = 'openapi.naver.com';
   var port = 443;
-  var uri = '/v1/search/book.xml?';
+  var uri = '/v1/search/book.json?';
   var options = {
     host: host,
     port: port,
@@ -36,15 +36,9 @@ router.get('/book', function(req, res) {
     }
   };
   req = https.request(options, function(response) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
     response.setEncoding('utf8');
-    response.on('data', function(xml) {
-      parseString(xml, function(err, result) {
-        var data = JSON.stringify(result);
-        console.log(data);
-        res.send(data);
-      });
+    response.on('data', function (json) {
+      res.send(json);
     });
   });
   req.end();
