@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>book</title>
+</head>
+
+<body>
+  <input type="text" name="search" value="애자일" id="query">
+  <button type="button" name="button" id="search">Search</button>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#search').click(function() {
+        if ($('#query').val() == '') {
+          alert('검색어를 입력해 주세요');
+          $('query').focus();
+        } else {
+          var search = $('#query').val();
+          $.ajax({
+            url: '/book',
+            dataType: 'json',
+            type: 'get',
+            data: {
+              'search': search
+            }
+          }).done(data => {
+            console.log(data);
+          }).fail(data => {
+            console.log(data);
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
